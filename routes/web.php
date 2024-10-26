@@ -32,6 +32,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::post('/p/{post:slung}/comment', [CommentController::class, 'store'])->name('store_comment')->middleware('auth');
+    Route::get('p/{post:slung}/edit' , [PostController::class, 'edit'])->name('edit_post')->middleware('auth');
+    Route::patch('p/{post:slung}/update' , [PostController::class, 'update'])->name('update_post')->middleware('auth');
+    Route::delete('p/{post:slung}/delete' , [PostController::class, 'destroy'])->name('delete_post')->middleware('auth');
 });
 
 require __DIR__.'/auth.php';

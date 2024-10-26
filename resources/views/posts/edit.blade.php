@@ -3,7 +3,7 @@
 
     {{--title--}}
 
-    <h1 class="text-3xl-mb-10">{{__('create a new post')}}</h1>
+    <h1 class="text-3xl-mb-10">{{__('Edit your post')}}</h1>
 
     {{--errors--}}
     <div class="flex flex-col justify-center items-center w-full">
@@ -23,13 +23,13 @@
 
     {{--form--}}
 
-    <form action="/p/create" method="post" class="w-full" enctype="multipart/form-data">
+    <form action="/p/{{$post->slung}}/update" method="post" class="w-full" enctype="multipart/form-data">
         @csrf
-
-           <x-create_edit/>
+        @method('PATCH')
+           <x-create_edit :post="$post"/>
 
         <x-primary-button class="mt-4">
-            {{__('Create Post')}}
+            {{__('Update Post')}}
         </x-primary-button>
 
     </form>

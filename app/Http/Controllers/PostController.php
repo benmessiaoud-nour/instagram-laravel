@@ -15,7 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
+
+        $posts =Post::all();
+        $suggested_users= auth()->user()->suggested_users();
+        return view('posts.index' , compact(['posts', 'suggested_users']));
     }
 
     /**
@@ -89,5 +93,13 @@ class PostController extends Controller
         Storage::delete('public/' . $post->image);
         $post->delete();
         return redirect(url('home'));
+    }
+
+    public function explore(){
+        $posts = Post::whereRelation('owner' , 'private_account' , '=' , 0)
+
+            ->whereNot('user_id' , auth()->id())
+            ->simplePaginate(12);
+        return view('posts.explore' , compact('posts'));
     }
 }

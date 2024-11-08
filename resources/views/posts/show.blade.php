@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="h-screen md:flex md:flex-row">
     {{--left side--}}
-        <div class="h-full md:w-7/12 bg-black flex items-center">
+        <div class=" md:w-7/12 bg-black flex items-center max-h-[95rem] overflow-hidden">
             <img src="/storage/{{ $post->image }}">
                  alt="{{ $post->description }}" class="max-h-screen object-cover mx-auto">
         </div>
@@ -22,18 +22,21 @@
 
                         <a href="/p/{{$post->slung}}/edit"><i class="bx bx-edit-alt text-xl "></i></a>
 
+                        <form action="/p/{{$post->slung}}/delete" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('are you sure?')">
+
+                                <i class="bx bx-message-square-x ml-2 text-xl text-red-600"></i>
+
+                            </button>
+
+                        </form>
+
+
                         @endif
 
-                    <form action="/p/{{$post->slung}}/delete" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('are you sure?')">
 
-                            <i class="bx bx-message-square-x ml-2 text-xl text-red-600"></i>
-
-                        </button>
-
-                    </form>
 
                 </div>
 

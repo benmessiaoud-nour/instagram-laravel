@@ -54,10 +54,29 @@
                          </div>
                          <div class="flex flex-col grow">
 
-                             <a href="/{{$suggested_user->username}}" class="font-bold">{{$suggested_user->username}}</a>
+                             <a href="/{{$suggested_user->username}}" class="font-bold">{{$suggested_user->username}}
+                             @if(auth()->user()->is_follower($suggested_user))
+                                 <span class="text-xs text-gray-500">{{__('follower')}}</span>
+
+                             @endif
+                             </a>
                              <div class="text-gray-500 text-sm">{{$suggested_user->name}}</div>
 
                          </div>
+
+
+
+                         @if(auth()->user()->is_pending($suggested_user))
+
+                             <Span class="text-gray-500 font-bold">{{__('requested')}}</Span>
+
+                         @else
+
+                             <a href="/{{$suggested_user->username}}/follow" class="text-blue-500 font-bold ">{{__('follow')}}</a>
+
+                         @endif
+
+
                      </li>
 
 

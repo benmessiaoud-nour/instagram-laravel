@@ -11,16 +11,13 @@
             <img src="{{ asset('storage/' . $post->image) }}" class="h-auto w-full object-cover">
         </div>
 
-            <div class="p-3">
-                <a href="/p/{{$post->slung}}/like">
-              @if($post->liked(auth()->user()))
-                  <i class="bx bxs-heart text-red-600 text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
-                    @else
-                        <i class="bx bxs-heart text-gray-400 cursor-pointer mr-3"></i>
+         <div class="p-3 flex flex-row">
+             <livewire:like :post="$post"/>
 
-              @endif
-                </a>
-            </div>
+             <a href="/p/{{$post->slung}}" class="grow">
+                 <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+             </a>
+         </div>
 
         <div class="p-3">
             <a href="{{$post->owner->username}}" class="font-bold">{{$post->owner->username}}</a>

@@ -18,8 +18,7 @@
                    <div class="grow">
                        <a href="/{{$post->owner->username}}" class="font-bold">{{$post->owner->username}}</a>
                    </div>
-                        @if($post->owner->id == auth()->id())
-
+                             @can('update' , $post)
                         <a href="/p/{{$post->slung}}/edit"><i class="bx bx-edit-alt text-xl "></i></a>
 
                         <form action="/p/{{$post->slung}}/delete" method="POST">
@@ -32,8 +31,9 @@
                             </button>
 
                         </form>
-
-                    @elseif(auth()->user()->is_following($post->owner))
+                    @endcan
+                    @cannot("update" , $post)
+                    @if(auth()->user()->is_following($post->owner))
                         <a href="/{{$post->owner->username}}/unfollow" class="w-30 text-blue-400 text-sm font-bold px-3 text-center">
                             {{__('Unfollow')}}
                         </a>
@@ -43,6 +43,7 @@
                         </a>
 
                         @endif
+                    @endcannot
 
 
 
@@ -84,6 +85,16 @@
                 </div>
             </div>
 
+
+            <div class="p-3 flex flex-row border-t">
+                <livewire:like :post="$post"/>
+
+                <a  class="grow" onclick="document.getElementById('comment_body').focus()">
+                    <i class="bx bx-comment text-3xl hover:text-gray-400 cursor-pointer mr-3"></i>
+                </a>
+            </div>
+
+            <livewire:liked-by :post="$post"/>
                 <div class="border-t-2 p-5 ">
 
                       <form action="/p/{{$post->slung}}/comment" method="POST">

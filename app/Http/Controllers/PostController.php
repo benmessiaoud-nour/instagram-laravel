@@ -60,6 +60,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('update', $post);
         return view('posts.edit', compact('post'));
     }
 
@@ -69,6 +70,7 @@ class PostController extends Controller
 
     public function update(Request $request, Post $post)
     {
+        $this->authorize('update', $post);
         $data=request()->validate([
             'description' =>'required',
             'image' => 'required' , 'mimes:jpeg,jpg,png,gif'
@@ -89,6 +91,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post);
         Storage::delete('public/' . $post->image);
         $post->delete();
         return redirect(url('home'));

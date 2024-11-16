@@ -19,15 +19,19 @@
                 {{__("Edit Profile")}}
             </a>
 
-        @elseif(auth()->user()->is_following($user))
-            <a href="/{{$user->username}}/unfollow" class="w-30 bg-blue-400 text-white px-3 py-1 rounded text-center self-start">{{__('Unfollow')}}</a>
+           @elseif(auth()->user()->is_following($user))
 
-        @elseif(auth()->user()->is_pending($user))
-           <span class="w-30 bg-gray-400 text-white px-3 py-1 roundedtext-center self-start">{{__('Requested')}}</span>
+            <a href="/{{$user->username}}/unfollow"
+            class="w-30 bg-blue-400 text-white px-3 py-1 rounded text-center self-start">{{__('Unfollow')}}</a>
+            @elseif(auth()->user()->is_pending($user))
+
+            <span class="w-30 bg-gray-400 text-white px-3 py-1 rounded text-center self-start">{{__('Requested')}}</span>
 
         @else
             <a href="/{{$user->username}}/follow" class="w-30 bg-blue-400 text-white px-3 py-1 rounded text-center self-start">{{__('Follow')}}</a>
-        @endif
+
+            @endif
+
         @endauth
 
         @guest

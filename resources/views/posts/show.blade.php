@@ -14,8 +14,10 @@
 
             <div class="border-b-2">
                 <div class="flex items-center p-5">
-                    <img src="{{$post->owner->image}}" alt="{{$post->owner->username}}" class="mr-5 h-10 w-10 rounded-full">
-                   <div class="grow">
+
+                        <img src="{{$post->owner->image}}" alt="{{$post->owner->username}}" class="mr-5 h-10 w-10 rounded-full">
+
+                    <div class="grow">
                        <a href="/{{$post->owner->username}}" class="font-bold">{{$post->owner->username}}</a>
                    </div>
                              @can('update' , $post)
@@ -33,16 +35,9 @@
                         </form>
                     @endcan
                     @cannot("update" , $post)
-                    @if(auth()->user()->is_following($post->owner))
-                        <a href="/{{$post->owner->username}}/unfollow" class="w-30 text-blue-400 text-sm font-bold px-3 text-center">
-                            {{__('Unfollow')}}
-                        </a>
-                    @else
-                        <a href="/{{$post->owner->username}}/follow" class="w-30 text-blue-400 text-sm font-bold px-3 text-center">
-                            {{__('Follow')}}
-                        </a>
 
-                        @endif
+                        <livewire:follow :post="$post" :userId="$post->owner->id"/>
+
                     @endcannot
 
 

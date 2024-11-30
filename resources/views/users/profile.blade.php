@@ -72,8 +72,8 @@
                     {{$user->following()->wherePivot('confirmed' , true)->get()->count() }}
 
                 </div>
-                <span class="text-neutral-500 md:text-black">
-                {{__('following')}}</span>
+                <button onclick="Livewire.dispatch('openModal', { component: 'following-modal' } , {{json_encode(['userId' => $user->id]) }})" class="text-neutral-500 md:text-black">
+                {{__('following')}}</button>
             </li>
 
 
